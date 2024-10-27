@@ -68,7 +68,7 @@ Children are especially vulnerable to exposure to harmful or inappropriate conte
 
 ### Screenshot
 
-![Doctor Groq Chatbot Screenshot](path/to/your/screenshot.png)
+![Doctor Groq Chatbot Screenshot](./demo.gif)
 
 ## Technology Stack
 
