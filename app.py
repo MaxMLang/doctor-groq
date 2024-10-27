@@ -57,10 +57,7 @@ def check_and_award_badges():
 if "show_sidebar" not in st.session_state:
     st.session_state.show_sidebar = True
 
-if st.sidebar.checkbox("Show Badge Progression", value=st.session_state.show_sidebar):
-    st.session_state.show_sidebar = True
-else:
-    st.session_state.show_sidebar = False
+
 
 # Display badges in the sidebar if checkbox is selected
 if st.session_state.show_sidebar:
