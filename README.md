@@ -73,8 +73,6 @@ Children are especially vulnerable to exposure to harmful or inappropriate conte
 - **Frontend**: Streamlit for an interactive and user-friendly interface.
 - **Deployment**: Deployable to any platform that supports Python and Streamlit, such as Heroku or Vercel.
 
-## Contribution and Feedback
 
-This project is open-source and welcomes contributions. For feedback or questions, please reach out to [community@groq.com](mailto:community@groq.com).
 
 
