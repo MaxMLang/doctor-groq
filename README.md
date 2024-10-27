@@ -1,10 +1,7 @@
-Here's the updated **README** file with the requested changes:
-
----
-
 # Doctor Groq - Kid-Friendly Learning Chatbot
 
-![Powered by Groq](powered_by_groq.svg)
+<img src="powered_by_groq.svg" style="width: 100px; height: auto;">
+
 
 ## Overview
 
@@ -66,7 +63,7 @@ Children are especially vulnerable to exposure to harmful or inappropriate conte
 3. **Educational and Fun Responses**: Doctor Groq provides age-appropriate, friendly responses.
 4. **Content Warnings**: Unsafe content is flagged with a hazard code (e.g., S1, S2) to inform users.
 
-### Screenshot
+### Demo
 
 ![Doctor Groq Chatbot Screenshot](./demo.gif)
 
