@@ -9,6 +9,10 @@
 
 This chatbot is created for the **Groq Bounty** competition, showcasing the capabilities of Groq’s Llama Guard in providing safe, AI-powered education.
 
+### Demo
+
+![Doctor Groq Chatbot Screenshot](./demo.gif)
+
 ## Why This Project Matters
 
 Education is one of the most impactful sectors for the adoption of AI. AI-powered educational tools can offer personalized and accessible learning experiences, breaking down complex concepts in ways that are easy for children to understand. However, when designing AI applications for young audiences, **safety becomes paramount**.
@@ -63,9 +67,6 @@ Children are especially vulnerable to exposure to harmful or inappropriate conte
 3. **Educational and Fun Responses**: Doctor Groq provides age-appropriate, friendly responses.
 4. **Content Warnings**: Unsafe content is flagged with a hazard code (e.g., S1, S2) to inform users.
 
-### Demo
-
-![Doctor Groq Chatbot Screenshot](./demo.gif)
 
 ## Technology Stack
 
