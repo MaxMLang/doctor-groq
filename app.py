@@ -36,11 +36,14 @@ if "messages" not in st.session_state:
 if "badges" not in st.session_state:
     st.session_state.badges = {
         "Explorer": {"description": "Ask 5 questions", "count": 0, "threshold": 5, "earned": False},
-        "Question Champion": {"description": "Answer 10 educational questions", "count": 0, "threshold": 10, "earned": False},
-        "Learning Streak": {"description": "Spend 10 minutes with Doctor Groq", "time_spent": 0, "threshold": 10, "earned": False},
+        "Question Champion": {"description": "Answer 10 educational questions", "count": 0, "threshold": 10,
+                              "earned": False},
+        "Learning Streak": {"description": "Spend 10 minutes with Doctor Groq", "time_spent": 0, "threshold": 10,
+                            "earned": False},
         "Fun Seeker": {"description": "Engage in 3 fun quizzes", "count": 0, "threshold": 3, "earned": False},
         "Knowledge Keeper": {"description": "Reach 15 interactions", "count": 0, "threshold": 15, "earned": False},
     }
+
 
 def check_and_award_badges():
     for badge, details in st.session_state.badges.items():
@@ -53,11 +56,10 @@ def check_and_award_badges():
                 st.session_state.badges[badge]["earned"] = True
                 st.sidebar.success(f"⏰ You've earned the '{badge}' badge!")
 
+
 # Display a checkbox to control sidebar visibility, only creating it once
 if "show_sidebar" not in st.session_state:
     st.session_state.show_sidebar = True
-
-
 
 # Display badges in the sidebar if checkbox is selected
 if st.session_state.show_sidebar:
@@ -78,6 +80,7 @@ hazard_categories = {
     "S13": "Elections", "S14": "Code Interpreter Abuse"
 }
 
+
 def check_content_safety(text):
     try:
         completion = client.chat.completions.create(
@@ -94,6 +97,7 @@ def check_content_safety(text):
     except Exception as e:
         st.error(f"Error in content safety check: {e}")
         return True, None
+
 
 # Display chat messages from history on app rerun
 for message in st.session_state.messages:
@@ -125,9 +129,12 @@ if prompt:
                     messages=[{"role": "system", "content": system_prompt}, *st.session_state.messages]
                 )
                 response_content = completion.choices[0].message.content
+
+                # Check the safety of the bot's response
                 is_safe, hazard_code = check_content_safety(response_content)
                 if not is_safe:
                     response_content = f"🚨 Warning: Unsafe content. Hazard: {hazard_code} - {hazard_categories[hazard_code]}"
+
                 st.markdown(response_content)
                 st.session_state.messages.append({"role": "assistant", "content": response_content})
             except Exception as e:
