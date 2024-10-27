@@ -29,36 +29,20 @@ st.markdown(
     "<p style='font-size: 1.1em; font-family: Arial, sans-serif; color: #555;'>Hello! I am Doctor Groq, your friendly assistant here to help kids learn about the world in a safe and fun way!</p>",
     unsafe_allow_html=True)
 
-# Initialize chat history
+# Initialize chat history and badge progression system in session state
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
-# Initialize badge progression system in session state
 if "badges" not in st.session_state:
     st.session_state.badges = {
         "Explorer": {"description": "Ask 5 questions", "count": 0, "threshold": 5, "earned": False},
-        "Question Champion": {"description": "Answer 10 educational questions", "count": 0, "threshold": 10,
-                              "earned": False},
-        "Learning Streak": {"description": "Spend 10 minutes with Doctor Groq", "time_spent": 0, "threshold": 10,
-                            "earned": False},
+        "Question Champion": {"description": "Answer 10 educational questions", "count": 0, "threshold": 10, "earned": False},
+        "Learning Streak": {"description": "Spend 10 minutes with Doctor Groq", "time_spent": 0, "threshold": 10, "earned": False},
         "Fun Seeker": {"description": "Engage in 3 fun quizzes", "count": 0, "threshold": 3, "earned": False},
         "Knowledge Keeper": {"description": "Reach 15 interactions", "count": 0, "threshold": 15, "earned": False},
     }
 
-
 def check_and_award_badges():
-    """
-    Checks the progression of each badge based on current interaction counts,
-    time spent, or specific thresholds. If any badge threshold is met,
-    it updates the badge status to 'earned' and displays a success message.
-
-    For badges such as 'Explorer' and 'Question Champion', it checks counts.
-    For 'Learning Streak', it checks cumulative time spent with the assistant.
-
-    Side effects:
-        - Updates badge statuses in `st.session_state`.
-        - Displays badge achievements in the sidebar if thresholds are met.
-    """
     for badge, details in st.session_state.badges.items():
         if badge in ["Explorer", "Question Champion", "Fun Seeker", "Knowledge Keeper"]:
             if details["count"] >= details["threshold"] and not details["earned"]:
@@ -69,12 +53,14 @@ def check_and_award_badges():
                 st.session_state.badges[badge]["earned"] = True
                 st.sidebar.success(f"⏰ You've earned the '{badge}' badge!")
 
-
-# Display a checkbox to control sidebar visibility
+# Display a checkbox to control sidebar visibility, only creating it once
 if "show_sidebar" not in st.session_state:
     st.session_state.show_sidebar = True
 
-st.sidebar.checkbox("Show Badge Progression", value=st.session_state.show_sidebar, key="show_sidebar")
+if st.sidebar.checkbox("Show Badge Progression", value=st.session_state.show_sidebar):
+    st.session_state.show_sidebar = True
+else:
+    st.session_state.show_sidebar = False
 
 # Display badges in the sidebar if checkbox is selected
 if st.session_state.show_sidebar:
@@ -89,39 +75,13 @@ if st.session_state.show_sidebar:
 
 # Hazard categories dictionary
 hazard_categories = {
-    "S1": "Violent Crimes",
-    "S2": "Non-Violent Crimes",
-    "S3": "Sex-Related Crimes",
-    "S4": "Child Sexual Exploitation",
-    "S5": "Defamation",
-    "S6": "Specialized Advice",
-    "S7": "Privacy",
-    "S8": "Intellectual Property",
-    "S9": "Indiscriminate Weapons",
-    "S10": "Hate",
-    "S11": "Suicide & Self-Harm",
-    "S12": "Sexual Content",
-    "S13": "Elections",
-    "S14": "Code Interpreter Abuse"
+    "S1": "Violent Crimes", "S2": "Non-Violent Crimes", "S3": "Sex-Related Crimes", "S4": "Child Sexual Exploitation",
+    "S5": "Defamation", "S6": "Specialized Advice", "S7": "Privacy", "S8": "Intellectual Property",
+    "S9": "Indiscriminate Weapons", "S10": "Hate", "S11": "Suicide & Self-Harm", "S12": "Sexual Content",
+    "S13": "Elections", "S14": "Code Interpreter Abuse"
 }
 
-
 def check_content_safety(text):
-    """
-    Verifies if the provided text is safe using the Llama Guard content moderation model.
-    It checks for various hazard categories and flags any unsafe content based on category codes.
-
-    Parameters:
-        text (str): The user input text that needs to be checked for safety.
-
-    Returns:
-        tuple (bool, str): Returns a tuple where the first element is a boolean
-        indicating whether the content is safe, and the second element is the
-        hazard code (if any) or `None`.
-
-    Side effects:
-        - Displays error message in Streamlit app if content check fails.
-    """
     try:
         completion = client.chat.completions.create(
             model=st.session_state.get("safety_model", "llama-guard-3-8b"),
@@ -137,7 +97,6 @@ def check_content_safety(text):
     except Exception as e:
         st.error(f"Error in content safety check: {e}")
         return True, None
-
 
 # Display chat messages from history on app rerun
 for message in st.session_state.messages:
@@ -187,37 +146,13 @@ check_and_award_badges()
 st.markdown(
     """
     <style>
-    .stChatInput > div {
-        border-radius: 10px;
-        background-color: #e3f2fd;
-    }
-    .stChatInput textarea {
-        border: 2px solid #64b5f6;
-        font-size: 1.1em;
-        font-family: Arial, sans-serif;
-    }
-    .stMarkdownContainer > div {
-        font-size: 1em;
-        font-family: 'Comic Sans MS', sans-serif;
-        background-color: #f9f9f9;
-        padding: 15px;
-        border-radius: 12px;
-        margin-bottom: 10px;
-        border: 1px solid #e0e0e0;
-    }
-    .stMarkdownContainer h2 {
-        color: #42a5f5;
-        font-size: 1.4em;
-        font-family: 'Comic Sans MS', sans-serif;
-    }
-    .stButton > button {
-        background-color: #81c784;
-        color: white;
-        font-size: 1em;
-        padding: 10px 20px;
-        border-radius: 12px;
-        border: none;
-    }
+    .stChatInput > div { border-radius: 10px; background-color: #e3f2fd; }
+    .stChatInput textarea { border: 2px solid #64b5f6; font-size: 1.1em; font-family: Arial, sans-serif; }
+    .stMarkdownContainer > div { font-size: 1em; font-family: 'Comic Sans MS', sans-serif; background-color: #f9f9f9;
+        padding: 15px; border-radius: 12px; margin-bottom: 10px; border: 1px solid #e0e0e0; }
+    .stMarkdownContainer h2 { color: #42a5f5; font-size: 1.4em; font-family: 'Comic Sans MS', sans-serif; }
+    .stButton > button { background-color: #81c784; color: white; font-size: 1em; padding: 10px 20px; border-radius: 12px;
+        border: none; }
     </style>
     """,
     unsafe_allow_html=True
