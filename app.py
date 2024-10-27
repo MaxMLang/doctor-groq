@@ -22,8 +22,12 @@ load_dotenv()
 client = Client(api_key=os.getenv("GROQ_API_KEY"))
 
 # Title and Introduction
-st.markdown("<h1 style='color: #000000; font-family: Arial, sans-serif;'>Doctor Groq - Kid-Friendly Learning Chatbot</h1>", unsafe_allow_html=True)
-st.markdown("<p style='font-size: 1.1em; font-family: Arial, sans-serif; color: #555;'>Hello! I am Doctor Groq, your friendly assistant here to help kids learn about the world in a safe and fun way!</p>", unsafe_allow_html=True)
+st.markdown(
+    "<h1 style='color: #000000; font-family: Arial, sans-serif;'>Doctor Groq - Kid-Friendly Learning Chatbot</h1>",
+    unsafe_allow_html=True)
+st.markdown(
+    "<p style='font-size: 1.1em; font-family: Arial, sans-serif; color: #555;'>Hello! I am Doctor Groq, your friendly assistant here to help kids learn about the world in a safe and fun way!</p>",
+    unsafe_allow_html=True)
 
 # Initialize chat history
 if "messages" not in st.session_state:
@@ -33,15 +37,28 @@ if "messages" not in st.session_state:
 if "badges" not in st.session_state:
     st.session_state.badges = {
         "Explorer": {"description": "Ask 5 questions", "count": 0, "threshold": 5, "earned": False},
-        "Question Champion": {"description": "Answer 10 educational questions", "count": 0, "threshold": 10, "earned": False},
-        "Learning Streak": {"description": "Spend 10 minutes with Doctor Groq", "time_spent": 0, "threshold": 10, "earned": False},
+        "Question Champion": {"description": "Answer 10 educational questions", "count": 0, "threshold": 10,
+                              "earned": False},
+        "Learning Streak": {"description": "Spend 10 minutes with Doctor Groq", "time_spent": 0, "threshold": 10,
+                            "earned": False},
         "Fun Seeker": {"description": "Engage in 3 fun quizzes", "count": 0, "threshold": 3, "earned": False},
         "Knowledge Keeper": {"description": "Reach 15 interactions", "count": 0, "threshold": 15, "earned": False},
     }
 
-# Function to check and award badges
+
 def check_and_award_badges():
-    # Check and update badges based on thresholds
+    """
+    Checks the progression of each badge based on current interaction counts,
+    time spent, or specific thresholds. If any badge threshold is met,
+    it updates the badge status to 'earned' and displays a success message.
+
+    For badges such as 'Explorer' and 'Question Champion', it checks counts.
+    For 'Learning Streak', it checks cumulative time spent with the assistant.
+
+    Side effects:
+        - Updates badge statuses in `st.session_state`.
+        - Displays badge achievements in the sidebar if thresholds are met.
+    """
     for badge, details in st.session_state.badges.items():
         if badge in ["Explorer", "Question Champion", "Fun Seeker", "Knowledge Keeper"]:
             if details["count"] >= details["threshold"] and not details["earned"]:
@@ -51,6 +68,7 @@ def check_and_award_badges():
             if details["time_spent"] >= details["threshold"] and not details["earned"]:
                 st.session_state.badges[badge]["earned"] = True
                 st.sidebar.success(f"⏰ You've earned the '{badge}' badge!")
+
 
 # Display a checkbox to control sidebar visibility
 if "show_sidebar" not in st.session_state:
@@ -87,10 +105,24 @@ hazard_categories = {
     "S14": "Code Interpreter Abuse"
 }
 
-# Function to check content safety using Llama Guard
+
 def check_content_safety(text):
+    """
+    Verifies if the provided text is safe using the Llama Guard content moderation model.
+    It checks for various hazard categories and flags any unsafe content based on category codes.
+
+    Parameters:
+        text (str): The user input text that needs to be checked for safety.
+
+    Returns:
+        tuple (bool, str): Returns a tuple where the first element is a boolean
+        indicating whether the content is safe, and the second element is the
+        hazard code (if any) or `None`.
+
+    Side effects:
+        - Displays error message in Streamlit app if content check fails.
+    """
     try:
-        # Use Llama Guard to check for unsafe content
         completion = client.chat.completions.create(
             model=st.session_state.get("safety_model", "llama-guard-3-8b"),
             messages=[{"role": "user", "content": text}],
@@ -105,6 +137,7 @@ def check_content_safety(text):
     except Exception as e:
         st.error(f"Error in content safety check: {e}")
         return True, None
+
 
 # Display chat messages from history on app rerun
 for message in st.session_state.messages:
