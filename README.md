@@ -1,6 +1,6 @@
 # Doctor Groq - Kid-Friendly Learning Chatbot
 
-<img src="powered_by_groq.svg" style="width: 100px; height: auto;">
+<img src="powered_by_groq.svg" style="width: 300px; height: auto;">
 
 
 ## Overview
