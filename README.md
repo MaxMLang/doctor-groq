@@ -2,10 +2,9 @@
 
 <img src="powered_by_groq.svg" style="width: 300px; height: auto;">
 
-
 ## Overview
 
-**Doctor Groq** is a safe, kid-friendly educational chatbot designed to provide children with a secure platform to explore educational topics. Leveraging **Llama Guard 3 8B** powered by Groq for robust content filtering, Doctor Groq ensures that interactions remain age-appropriate, allowing young users to learn and discover the world with guidance they can trust. 
+**Doctor Groq** is a safe, kid-friendly educational chatbot designed to provide children with a secure platform to explore educational topics. Leveraging **Llama Guard 3 8B** powered by Groq for robust content filtering, Doctor Groq ensures that interactions remain age-appropriate, allowing young users to learn and discover the world with guidance they can trust.
 
 This chatbot is created for the **Groq Bounty** competition, showcasing the capabilities of Groq’s Llama Guard in providing safe, AI-powered education.
 
@@ -15,16 +14,35 @@ This chatbot is created for the **Groq Bounty** competition, showcasing the capa
 
 ## Why This Project Matters
 
-Education is one of the most impactful sectors for the adoption of AI. AI-powered educational tools can offer personalized and accessible learning experiences, breaking down complex concepts in ways that are easy for children to understand. However, when designing AI applications for young audiences, **safety becomes paramount**.
+Education is one of the most impactful sectors for AI adoption. AI-powered educational tools can offer personalized and accessible learning experiences, simplifying complex concepts in ways that are easy for children to understand. However, when designing AI applications for young audiences, **safety becomes paramount**.
 
 Children are especially vulnerable to exposure to harmful or inappropriate content. Doctor Groq aims to bridge the gap between AI-driven educational resources and the need for strict content moderation. By integrating **Llama Guard 3 8B** for real-time content safety checks, Doctor Groq provides a safe environment for children to explore educational content. This project highlights how AI can contribute positively to education while safeguarding young users from inappropriate or harmful material.
 
 ## Features
 
-- **Content Filtering**: All input and output are processed by **Llama Guard 3 8B** to ensure safety. Any unsafe content is flagged with a specific hazard code, so users are always aware of potentially risky content.
+- **Content Filtering**: Every input and output is processed by **Llama Guard 3 8B** to ensure safety. If unsafe content is detected, it’s flagged with a hazard code, making it easy to identify potentially risky material.
 - **Friendly Conversational AI**: A kid-friendly conversational model (llama-3.1-70b-versatile) generates responses that are both educational and easy for children to understand.
-- **Engaging and Safe UI**: Designed with a colorful and welcoming interface that is easy to navigate, tailored specifically for young learners.
-- **Powered by Groq Badge**: Displays a "Powered by Groq" badge on the UI, showcasing the underlying technology.
+- **Engaging and Safe UI**: Designed with a colorful and welcoming interface tailored for young learners, making it easy for them to navigate.
+- **Badge System**: Encourages children to engage with educational content by awarding badges based on interaction milestones (details below).
+- **Powered by Groq Badge**: Displays a "Powered by Groq" badge in the UI, showcasing the underlying technology.
+
+---
+
+## Badge System
+
+The badge system in Doctor Groq is designed to make learning both fun and rewarding. As children interact with Doctor Groq, they earn badges based on their engagement, encouraging consistent learning and exploration. The badges include:
+
+- **Explorer**: Awarded for asking 5 questions, promoting curiosity.
+- **Question Champion**: Given after 10 educational questions, encouraging deeper exploration.
+- **Learning Streak**: Earned by spending 10 minutes with Doctor Groq, fostering prolonged engagement.
+- **Fun Seeker**: Granted after engaging in 3 fun quizzes, adding an element of play.
+- **Knowledge Keeper**: Awarded after reaching 15 interactions, rewarding consistent participation.
+
+Each badge tracks a specific metric (e.g., time spent, number of questions asked) and updates progress dynamically. When a threshold is reached, a success message appears, notifying the child of their new achievement.
+
+For more details on the code implementation of the badge system, refer to the [docs.md](docs.md) file.
+
+---
 
 ## How to Run the App
 
@@ -67,6 +85,7 @@ Children are especially vulnerable to exposure to harmful or inappropriate conte
 3. **Educational and Fun Responses**: Doctor Groq provides age-appropriate, friendly responses.
 4. **Content Warnings**: Unsafe content is flagged with a hazard code (e.g., S1, S2) to inform users.
 
+---
 
 ## Technology Stack
 
@@ -74,6 +93,10 @@ Children are especially vulnerable to exposure to harmful or inappropriate conte
 - **Frontend**: Streamlit for an interactive and user-friendly interface.
 - **Deployment**: Deployable to any platform that supports Python and Streamlit, such as Heroku or Vercel.
 
+---
 
+## Additional Documentation
+
+For an in-depth look at each function, including the `check_and_award_badges` and `check_content_safety` functions, refer to [docs.md](docs.md). This document contains detailed explanations for each function, their parameters, and return values, as well as an overview of the badge system and UI styling.
 
 
