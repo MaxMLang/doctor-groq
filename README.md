@@ -8,6 +8,23 @@
 
 This chatbot is created for the **Groq Bounty** competition, showcasing the capabilities of Groq’s Llama Guard in providing safe, AI-powered education.
 
+## Just Want the Easy Way? Meet Pytector for Groq API
+
+For the purposes of this demo and to showcase the new Groq API capabilities directly, the current GroqMail implementation uses the API in its **raw form**. However, as the author of **Pytector**, I’ve developed a streamlined package that also integrates seamlessly with the Groq API. **Pytector** offers a production-grade solution for efficiently accessing Groq’s powerful features with minimal setup, designed to scale with larger applications.
+
+<div align="center">
+    <a href="https://github.com/MaxMLang/pytector">
+        <img src="https://github.com/MaxMLang/assets/blob/main/pytector-logo.png?raw=true" alt="Pytector Logo" width="100" height="100">
+    </a>
+</div>
+
+**Benefits of Pytector:**
+- **Security-Focused API Calls**: Offers a streamlined approach to Groq API integration, designed with a focus on prompt injection detection.
+- **Error Handling and Logging**: Built-in error handling to ensure stable and reliable API communication.
+- **Scalability for Production**: Developed with a focus on streamlined, scalable implementations suitable for high-demand environments.
+
+For more details and to use Pytector in your projects, visit the [Pytector GitHub repository](https://github.com/MaxMLang/pytector).
+
 ### Demo
 
 ![Doctor Groq Chatbot Screenshot](./demo.gif)
